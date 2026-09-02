@@ -2,7 +2,9 @@
 
 ## [0.1.0]
 
-### Added
+First release of yt-downloader.
+
+Cross-platform media downloader GUI built with Python, PyQt5, and yt-dlp.
 
 - PyQt5 desktop GUI for downloading media from yt-dlp supported sites.
 - Download audio or video from a pasted URL.

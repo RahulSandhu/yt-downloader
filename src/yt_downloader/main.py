@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QApplication
 
 from yt_downloader.ui.main_window import DownloaderApp
 
-
 def main():
     app = QApplication(sys.argv)
     window = DownloaderApp()
