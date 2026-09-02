@@ -11,6 +11,8 @@ Cross-platform media downloader GUI built with Python, PyQt5, and yt-dlp.
 Requires Python >= 3.14 and ffmpeg (for audio conversion).
 
 ```sh
+git clone https://github.com/RahulSandhu/yt-downloader.git
+cd yt-downloader
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
