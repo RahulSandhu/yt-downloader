@@ -3,7 +3,7 @@
 Cross-platform media downloader GUI built with Python, PyQt5, and yt-dlp.
 
 <p align="center">
-  <img src="assets/icon.png" width="300" alt="yt-downloader">
+  <img src="images/demo.png" width="800" alt="yt-downloader">
 </p>
 
 ## Setup
