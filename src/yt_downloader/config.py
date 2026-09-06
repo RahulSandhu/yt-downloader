@@ -1,4 +1,9 @@
 import os
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
 SUPPORTED_EXTENSIONS = ["m4a", "webm", "mkv", "mp4"]
 
@@ -12,7 +17,7 @@ COOKIES_BROWSER = os.environ.get("YT_DOWNLOADER_COOKIES_BROWSER", "firefox")
 COOKIES_PROFILE = os.environ.get("YT_DOWNLOADER_COOKIES_PROFILE")
 
 COOKIES_FROM_BROWSER = (
-    (COOKIES_BROWSER, COOKIES_PROFILE) if COOKIES_PROFILE else COOKIES_BROWSER
+    (COOKIES_BROWSER, COOKIES_PROFILE) if COOKIES_PROFILE else (COOKIES_BROWSER,)
 )
 
 REMOTE_COMPONENTS = {"ejs:github", "ejs:npm"}

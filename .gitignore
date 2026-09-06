@@ -1,5 +1,7 @@
+.env
 .ruff_cache/
 .venv/
 AGENTS.md
 build/
 dist/
+src/yt_downloader.egg-info

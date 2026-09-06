@@ -97,7 +97,7 @@ class DownloadWorker(QObject):
                 suggested_filename = make_filename(info, file_extension)
 
                 self.progress.emit(f"Downloading: {info.get('title', 'N/A')}")
-                ydl.download([self.url])
+                ydl.process_ie_result(info, download=True)
 
                 actual_filepath = None
                 for ext in SUPPORTED_EXTENSIONS:
