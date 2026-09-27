@@ -1,8 +1,13 @@
 # Changelog
 
-## [Unreleased]
+## [0.2.0]
 
 - Removed cover art fetching and embedding.
+- Strip diacritics when generating file names.
+- Browser cookie browser and profile configurable via
+  `YT_DOWNLOADER_COOKIES_BROWSER` and `YT_DOWNLOADER_COOKIES_PROFILE`.
+- Avoid re-extracting video info during download.
+- README: clone instructions, animated demo, and educational-use disclaimer.
 
 ## [0.1.0]
 
