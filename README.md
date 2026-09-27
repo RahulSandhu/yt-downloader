@@ -33,9 +33,8 @@ PYTHONPATH=src .venv/bin/python -m yt_downloader.main
 ```
 
 Paste a URL (YouTube, Twitter, Instagram, TikTok, etc.), choose audio-only or
-video, edit the title and artist and optionally fetch cover art, then pick a
-destination folder and file name to save. Audio is saved as `m4a`, video as
-`mp4`.
+video, edit the title and artist, then pick a destination folder and file name
+to save. Audio is saved as `m4a`, video as `mp4`.
 
 ## Disclaimer
 

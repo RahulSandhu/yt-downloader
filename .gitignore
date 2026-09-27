@@ -4,4 +4,4 @@
 AGENTS.md
 build/
 dist/
-src/yt_downloader.egg-info
+src/yt_downloader.egg-info/

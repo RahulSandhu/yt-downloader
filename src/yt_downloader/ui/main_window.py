@@ -18,7 +18,6 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
-from yt_downloader.core.cover_art import CoverArtWorker
 from yt_downloader.core.downloader import DownloadWorker
 from yt_downloader.core.metadata import write_metadata
 from yt_downloader.utils.filename import to_snake
@@ -31,7 +30,6 @@ class DownloaderApp(QWidget):
         self.setGeometry(200, 200, 500, 650)
         self.temp_filepath = None
         self.selected_save_dir = None
-        self.cover_art_data = None
         self.file_extension = None
         self.download_completed = False
         self.init_ui()
@@ -77,22 +75,6 @@ class DownloaderApp(QWidget):
         metadata_layout.addWidget(self.artist_label)
         self.artist_input = QLineEdit()
         metadata_layout.addWidget(self.artist_input)
-
-        self.cover_art_label = QLabel("Cover art:")
-        metadata_layout.addWidget(self.cover_art_label)
-        cover_art_layout = QHBoxLayout()
-        self.cover_yes_radio = QRadioButton("Yes")
-        self.cover_no_radio = QRadioButton("No")
-        self.cover_no_radio.setChecked(True)
-        self.cover_button_group = QButtonGroup()
-        self.cover_button_group.addButton(self.cover_yes_radio)
-        self.cover_button_group.addButton(self.cover_no_radio)
-        cover_art_layout.addWidget(self.cover_yes_radio)
-        cover_art_layout.addWidget(self.cover_no_radio)
-        cover_art_layout.addStretch()
-        metadata_layout.addLayout(cover_art_layout)
-        self.cover_art_note = QLabel("")
-        metadata_layout.addWidget(self.cover_art_note)
         self.metadata_group.setLayout(metadata_layout)
 
         self.save_group = QGroupBox("Step 3: Saving")
@@ -139,56 +121,10 @@ class DownloaderApp(QWidget):
         self.dir_tree.clicked.connect(self.on_folder_selected)
         self.save_button.clicked.connect(self.save_file)
         self.create_folder_button.clicked.connect(self.create_folder)
-        self.cover_yes_radio.toggled.connect(self.on_cover_toggled)
         self.title_input.textChanged.connect(self.update_suggested_filename)
         self.audio_radio.toggled.connect(self.update_audio_fields_visibility)
         self.video_radio.toggled.connect(self.update_audio_fields_visibility)
         self.update_audio_fields_visibility()
-
-    def on_cover_toggled(self, checked):
-        if checked:
-            self.search_cover_art()
-        else:
-            self.cover_art_data = None
-            self.cover_art_note.setText("")
-
-    def search_cover_art(self):
-        artist = self.artist_input.text()
-        title = self.title_input.text()
-        if not artist or not title:
-            QMessageBox.warning(
-                self, "Warning", "Please enter both Title and Artist first."
-            )
-            return
-
-        self.cover_art_note.setText("Searching cover art...")
-
-        self.cover_thread = QThread()
-        self.cover_worker = CoverArtWorker(artist, title)
-        self.cover_worker.moveToThread(self.cover_thread)
-
-        self.cover_thread.started.connect(self.cover_worker.run)
-        self.cover_worker.finished.connect(self.on_cover_results)
-        self.cover_worker.error.connect(self.on_cover_error)
-        self.cover_worker.finished.connect(self.cover_thread.quit)
-        self.cover_worker.finished.connect(self.cover_worker.deleteLater)
-        self.cover_worker.error.connect(self.cover_thread.quit)
-        self.cover_worker.error.connect(self.cover_worker.deleteLater)
-        self.cover_thread.finished.connect(self.cover_thread.deleteLater)
-
-        self.cover_thread.start()
-
-    def on_cover_results(self, artist, title, data):
-        if not data:
-            self.cover_art_data = None
-            self.cover_art_note.setText("No cover art found.")
-            return
-        self.cover_art_data = data
-        self.cover_art_note.setText(f"Cover art: {artist} - {title}")
-
-    def on_cover_error(self, message):
-        self.cover_art_data = None
-        self.cover_art_note.setText(message)
 
     def update_audio_fields_visibility(self):
         visible = self.audio_radio.isChecked() and self.download_completed
@@ -196,10 +132,6 @@ class DownloaderApp(QWidget):
         self.title_input.setVisible(visible)
         self.artist_label.setVisible(visible)
         self.artist_input.setVisible(visible)
-        self.cover_art_label.setVisible(visible)
-        self.cover_yes_radio.setVisible(visible)
-        self.cover_no_radio.setVisible(visible)
-        self.cover_art_note.setVisible(visible)
 
     def start_download(self):
         video_url = self.url_input.text()
@@ -282,7 +214,7 @@ class DownloaderApp(QWidget):
             title = self.title_input.text()
             artist = self.artist_input.text()
             try:
-                write_metadata(self.temp_filepath, title, artist, self.cover_art_data)
+                write_metadata(self.temp_filepath, title, artist)
             except Exception as e:
                 QMessageBox.warning(
                     self,
@@ -336,9 +268,6 @@ class DownloaderApp(QWidget):
         self.title_input.clear()
         self.artist_input.clear()
         self.filename_input.clear()
-        self.cover_no_radio.setChecked(True)
-        self.cover_art_data = None
-        self.cover_art_note.setText("")
         self.file_extension = None
         self.download_completed = False
         self.update_audio_fields_visibility()

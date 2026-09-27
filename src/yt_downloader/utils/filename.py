@@ -1,7 +1,15 @@
 import re
+import unicodedata
+
+
+def _strip_diacritics(s):
+    return "".join(
+        c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c)
+    )
 
 
 def to_snake(s):
+    s = _strip_diacritics(s)
     s = s.lower().strip()
     s = re.sub(r"[^\w\s]", "", s)
     s = re.sub(r"\s+", "_", s)

@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Removed cover art fetching and embedding.
+
 ## [0.1.0]
 
 First release of yt-downloader.
