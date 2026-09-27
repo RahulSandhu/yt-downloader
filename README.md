@@ -36,8 +36,6 @@ Paste a URL (YouTube, Twitter, Instagram, TikTok, etc.), choose audio-only or
 video, edit the title and artist, then pick a destination folder and file name
 to save. Audio is saved as `m4a`, video as `mp4`.
 
-## Configuration
-
 Cookies are read from a browser profile to support authenticated downloads.
 Override the browser or profile with environment variables (a `.env` in the
 project root is also loaded):
