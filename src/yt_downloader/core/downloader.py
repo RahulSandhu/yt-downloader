@@ -7,7 +7,7 @@ import tempfile
 import yt_dlp
 from PyQt5.QtCore import QObject, pyqtSignal
 
-from yt_downloader.config import (
+from yt_downloader.utils.config import (
     AUDIO_EXTENSION,
     AUDIO_FORMAT,
     COOKIES_FROM_BROWSER,
