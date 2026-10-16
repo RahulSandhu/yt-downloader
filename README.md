@@ -8,7 +8,7 @@ Cross-platform media downloader GUI built with Python, PyQt5, and yt-dlp.
 
 ## Setup
 
-Requires Python >= 3.14 and ffmpeg (for audio conversion).
+Requires Python >= 3.13 and ffmpeg (for audio conversion).
 
 ```sh
 git clone https://github.com/RahulSandhu/yt-downloader.git
