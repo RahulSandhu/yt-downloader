@@ -13,9 +13,9 @@ Requires Python >= 3.13 and ffmpeg (for audio conversion).
 ```sh
 git clone https://github.com/RahulSandhu/yt-downloader.git
 cd yt-downloader
-python -m venv .venv
+uv venv --python 3.13.16 --seed
 source .venv/bin/activate
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 ```
 
 ## Usage
